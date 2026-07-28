@@ -115,7 +115,8 @@ describe('zcap refresh', () => {
           const result = await refreshZcaps({
             serviceType: 'refreshing', config: record.config, signal
           });
-          result.refresh.enabled.should.equal(false);
+          // refresh still enabled for better resiliency
+          result.refresh.enabled.should.equal(true);
           result.error.name.should.equal('NotFoundError');
           should.not.exist(result.config);
 
@@ -166,7 +167,8 @@ describe('zcap refresh', () => {
     const record = await configRefreshPromise;
     record.config.id.should.equal(configId);
     record.config.sequence.should.equal(1);
-    record.meta.refresh.enabled.should.equal(false);
+    // refresh still enabled for better resiliency
+    record.meta.refresh.enabled.should.equal(true);
     record.meta.refresh.after.should.equal(expectedAfter);
   });
   it('should handle 403 for refresh policy', async () => {
@@ -222,7 +224,8 @@ describe('zcap refresh', () => {
           const result = await refreshZcaps({
             serviceType: 'refreshing', config: record.config, signal
           });
-          result.refresh.enabled.should.equal(false);
+          // refresh still enabled for better resiliency
+          result.refresh.enabled.should.equal(true);
           result.error.name.should.equal('NotAllowedError');
           should.not.exist(result.config);
 
@@ -275,7 +278,8 @@ describe('zcap refresh', () => {
     const record = await configRefreshPromise;
     record.config.id.should.equal(configId);
     record.config.sequence.should.equal(1);
-    record.meta.refresh.enabled.should.equal(false);
+    // refresh still enabled for better resiliency
+    record.meta.refresh.enabled.should.equal(true);
     record.meta.refresh.after.should.equal(expectedAfter);
   });
   it('should not refresh zcaps with "refresh=false" policy', async () => {
